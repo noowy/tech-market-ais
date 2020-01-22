@@ -23,6 +23,6 @@ public class Vacation
     private Float vacationPayAmount;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "vacation")
+    @ManyToOne
     private Employee emp;
 }

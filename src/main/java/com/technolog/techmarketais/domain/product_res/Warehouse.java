@@ -2,10 +2,7 @@ package com.technolog.techmarketais.domain.product_res;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -25,5 +22,6 @@ public class Warehouse
     @NotBlank
     private String address;
 
+    @OneToMany(mappedBy = "warehouse")
     private List<ProductItem> products;
 }

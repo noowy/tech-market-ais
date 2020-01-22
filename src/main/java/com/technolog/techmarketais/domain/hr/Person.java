@@ -2,9 +2,10 @@ package com.technolog.techmarketais.domain.hr;
 
 import lombok.Data;
 
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
-
+@MappedSuperclass
 @Data
 public class Person
 {
