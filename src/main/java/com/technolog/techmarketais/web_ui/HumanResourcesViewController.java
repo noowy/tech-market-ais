@@ -33,6 +33,11 @@ public class HumanResourcesViewController
     @GetMapping("/")
     public String fetchMainPage(@RequestParam int pageNum, Model model)
     {
+        if (pageNum < 0)
+        {
+            model.addAttribute("error", "out_of_range");
+            return "hrMainForm";
+        }
         PageRequest page = PageRequest.of(pageNum, 20, Sort.by("firstName").ascending());
         List<Employee> emps = empRepo.findAll(page).getContent();
         model.addAttribute("empList", emps);

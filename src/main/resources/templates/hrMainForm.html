@@ -6,12 +6,26 @@
 </head>
 <body>
 
-    <form th:action="@{/hr/emp}" th:object="${emp}">
-        <table>
-
-        </table>
+    <form th:action="@{/hr/}">
+        Employees<br>
         <button name="action" value="search">Search</button>
+        <table>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Position</td>
+                <td>Is active</td>
+            </tr>
+            <tr th:each="emp : ${empList}">
+                <a th:href="@{/hr/emp/__${emp.id}__}"><td th:value="${emp.id}" th:text="${emp.id}"></td></a>
+                <td th:value="${emp.firstName + ' ' emp.lastName}" th:text="${emp.firstName + ' ' emp.lastName}"></td>
+                <td th:value="${emp.position.name}" th:text="${emp.position.name}"></td>
+                <td th:value="${emp.isActive}" th:text="${emp.isActive}"></td>
+            </tr>
+        </table>
     </form>
+    <a th:href="@{/hr/(pageNum=${pageNum - 20})}"><button name="prev_page">Previous Page</button></a>
+    <a th:href="@{/hr/(pageNum=${pageNum + 20})}"><button name="next_page">Next Page</button></a>
 
 
 </body>
