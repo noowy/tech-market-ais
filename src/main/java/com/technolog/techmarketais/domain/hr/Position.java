@@ -24,6 +24,7 @@ public class Position
 
     private String description;
 
+    @NotNull
     private Integer salary;
 
     @JsonIgnore
