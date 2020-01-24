@@ -78,4 +78,26 @@ public class HumanResourcesViewController
         Employee empAdded = empRepo.save(emp);
         return "redirect:/hr/emp/" + empAdded.getId().toString();
     }
+
+    @GetMapping("/pos/{id}")
+    public String fetchPosInfo(@PathVariable @Valid Long id, Model model)
+    {
+        Optional<Position> pos = posRepo.findById(id);
+
+        if (!pos.isPresent())
+        {
+            model.addAttribute("error", "not_exist");
+            return "posInfoForm";
+        }
+
+        model.addAttribute("pos", pos);
+        return "posInfoForm";
+    }
+
+    @PostMapping("/pos/add")
+    public String addNewPosition(@RequestBody @Valid Position pos)
+    {
+        Position posAdded = posRepo.save(pos);
+        return "redirect:/hr/pos/" + posAdded.getId().toString();
+    }
 }

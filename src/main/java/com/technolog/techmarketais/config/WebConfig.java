@@ -10,6 +10,6 @@ public class WebConfig implements WebMvcConfigurer
     @Override
     public void addViewControllers(ViewControllerRegistry registry)
     {
-        registry.addViewController("/hr/emp/add").setViewName("hrAddEmpForm");
+        registry.addViewController("/home").setViewName("mainPage");
     }
 }

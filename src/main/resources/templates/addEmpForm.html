@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form th:action="@{/hr/emp/add}" th:object="${emp}">
+    <form th:action="@{/hr/emp/add}" method="post" th:object="${emp}">
         First name<br>
         <input type="text" name="firstName">
         <br>
@@ -19,7 +19,7 @@
         Position<br>
         <select name="position">
             <option th:each="pos : ${positions}"
-                    th:value="${pos.id}"
+                    th:value="${pos}"
                     th:text="${pos.name + '(salary: ' + pos.salary + ')'}"></option>
         </select><a href="">Missing a position? Add new one</a>
         <br>

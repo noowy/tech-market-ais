@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Position information</title>
+</head>
+<body>
+
+    <form th:action="@{/hr/pos/edit}" th:method="update" th:object="${pos}">
+        Position name<br>
+        <input type="text" name="name" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Description<br>
+        <input type="text" name="description" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Salary<br>
+        <input type="text" name="salary" th:attrappend="${allowed_edit = false}?disabled>">
+        <br>
+    </form>
+
+</body>
+</html>

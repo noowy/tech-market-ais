@@ -6,7 +6,32 @@
 </head>
 <body>
 
-
+    <form th:action="@{/hr/emp/edit" th:method="update" th:object="${emp}">
+        First name<br>
+        <input type="text" name="firstName" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Last Name<br>
+        <input type="text" name="lastName" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Date of birth<br>
+        <input type="date" name="birthDate" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Position<br>
+        <select name="position" th:attrappend="${allowed_edit = false}?disabled">
+            <option th:each="pos : ${positions}"
+                    th:value="${pos}"
+                    th:text="${pos.name + '(salary: ' + pos.salary + ')'}"></option>
+        </select><a href="">Missing a position? Add new one</a>
+        <br>
+        Salary bonus<br>
+        <input type="number" name="bonus" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Hire date<br>
+        <input type="date" name="hireDate" th:attrappend="${allowed_edit = false}?disabled">
+        <br>
+        Activated<br>
+        <input type="checkbox" name="isActive" th:attrappend="${allowed_edit = false}?disabled">
+    </form>
 
 </body>
 </html>
