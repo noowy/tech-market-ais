@@ -21,7 +21,8 @@
             <option th:each="pos : ${positions}"
                     th:value="${pos}"
                     th:text="${pos.name + '(salary: ' + pos.salary + ')'}"></option>
-        </select><a href="">Missing a position? Add new one</a>
+        </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
+        </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
         <br>
         Salary bonus<br>
         <input type="number" name="bonus">

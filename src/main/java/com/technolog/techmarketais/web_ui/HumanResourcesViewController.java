@@ -35,12 +35,14 @@ public class HumanResourcesViewController
     {
         if (pageNum < 0)
         {
-            model.addAttribute("error", "out_of_range");
+            model.addAttribute("error", "page_out_of_range");
             return "hrMainForm";
         }
+
         PageRequest page = PageRequest.of(pageNum, 20, Sort.by("firstName").ascending());
         List<Employee> emps = empRepo.findAll(page).getContent();
         model.addAttribute("empList", emps);
+
         return "hrMainForm";
     }
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products resources</title>
+</head>
+<body>
+
+    <form th:action="@{/prod/}">
+        Products<br>
+        <button name="action" value="search">Search</button>
+        <table>
+            <tr>
+                <td>Id</td>
+                <td>Title</td>
+                <td>Serial number</td>
+                <td>Cost</td>
+            </tr>
+            <tr th:each="prod : ${prodList}">
+                <a th:href="@{/hr/prod/__${prod.id}__}"><td th:value="${prod.id}" th:text="${prod.id}"></td></a>
+                <td th:value="${prod.title}" th:text="${prod.title}"></td>
+                <td th:value="${prod.serialNumber}" th:text="${prod.serialNumber}"></td>
+                <td th:value="${prod.cost}" th:text="${prod.cost}"></td>
+            </tr>
+        </table>
+    </form>
+    <a th:href="@{/hr/(pageNum=${pageNum - 20})}"><button name="prev_page">Previous Page</button></a>
+    <a th:href="@{/hr/(pageNum=${pageNum + 20})}"><button name="next_page">Next Page</button></a>
+
+</body>
+</html>

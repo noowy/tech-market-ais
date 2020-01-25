@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form th:action="@{/hr/emp/edit" th:method="update" th:object="${emp}">
+    <form th:action="@{/hr/emp/edit}" th:method="update" th:object="${emp}">
         First name<br>
         <input type="text" name="firstName" th:attrappend="${allowed_edit = false}?disabled">
         <br>
@@ -20,8 +20,8 @@
         <select name="position" th:attrappend="${allowed_edit = false}?disabled">
             <option th:each="pos : ${positions}"
                     th:value="${pos}"
-                    th:text="${pos.name + '(salary: ' + pos.salary + ')'}"></option>
-        </select><a href="">Missing a position? Add new one</a>
+                    th:text="${pos.name + '(salary: ' + pos.salary + '$)'}"></option>
+        </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
         <br>
         Salary bonus<br>
         <input type="number" name="bonus" th:attrappend="${allowed_edit = false}?disabled">
