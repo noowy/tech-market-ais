@@ -38,7 +38,7 @@ public class ProductResourcesViewController
             return "prodMainPage";
         }
 
-        PageRequest page = PageRequest.of(pageNum, 20, Sort.by("title").ascending());
+        PageRequest page = PageRequest.of(pageNum * 20, 20, Sort.by("title").ascending());
         List<Item> prodList = prodRepo.findAll(page).getContent();
         model.addAttribute("prodList", prodList);
 

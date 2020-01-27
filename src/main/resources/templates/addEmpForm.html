@@ -19,9 +19,8 @@
         Position<br>
         <select name="position">
             <option th:each="pos : ${positions}"
-                    th:value="${pos}"
+                    th:value="${pos.id}"
                     th:text="${pos.name + '(salary: ' + pos.salary + ')'}"></option>
-        </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
         </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
         <br>
         Salary bonus<br>
@@ -32,6 +31,7 @@
         <br>
         Activated<br>
         <input type="checkbox" name="isActive">
+        <input type="submit" value="addEmp"/>
     </form>
 
 </body>

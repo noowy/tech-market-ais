@@ -4,18 +4,24 @@ import com.technolog.techmarketais.domain.hr.Employee;
 import com.technolog.techmarketais.domain.hr.Position;
 import com.technolog.techmarketais.repositories.EmployeeRepository;
 import com.technolog.techmarketais.repositories.PositionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("/hr")
 public class HumanResourcesViewController
@@ -30,16 +36,22 @@ public class HumanResourcesViewController
         this.posRepo = posRepo;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder)
+    {
+        dataBinder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
+
     @GetMapping("/")
     public String fetchMainPage(@RequestParam int pageNum, Model model)
     {
         if (pageNum < 0)
         {
             model.addAttribute("error", "page_out_of_range");
-            return "hrMainForm";
+            return "redirect:/hr/?pageNum=0";
         }
 
-        PageRequest page = PageRequest.of(pageNum, 20, Sort.by("firstName").ascending());
+        PageRequest page = PageRequest.of(pageNum * 20, 20, Sort.by("firstName").ascending());
         List<Employee> emps = empRepo.findAll(page).getContent();
         model.addAttribute("empList", emps);
 
@@ -59,9 +71,10 @@ public class HumanResourcesViewController
         return "hrMainForm";
     }
 
-    @GetMapping("/emp/{id}")
+    @GetMapping("/emp/info/{id}")
     public String fetchEmpInfo(@PathVariable @Valid Long id, Model model)
     {
+        log.info("THE ID IS -----------" + id.toString());
         Optional<Employee> emp = empRepo.findById(id);
 
         if (!emp.isPresent())
@@ -71,19 +84,32 @@ public class HumanResourcesViewController
         }
 
         model.addAttribute("emp", emp.get());
+
+        List<Position> positions = (List<Position>) posRepo.findAll();
+        model.addAttribute("positions", positions);
+
         return "empInfoForm";
     }
 
-    @PostMapping("/emp/add")
-    public String addNewEmployee(@RequestBody @Valid Employee emp)
+    @GetMapping("/emp/add")
+    public String fetchAddEmpForm(Model model)
     {
-        Employee empAdded = empRepo.save(emp);
-        return "redirect:/hr/emp/" + empAdded.getId().toString();
+        List<Position> positions = (List<Position>) posRepo.findAll();
+        model.addAttribute("positions", positions);
+        return "addEmpForm";
     }
 
-    @GetMapping("/pos/{id}")
+    @PostMapping("/emp/add")
+    public String addNewEmployee(@ModelAttribute("emp") @Valid Employee emp)
+    {
+        Employee empAdded = empRepo.save(emp);
+        return "redirect:/hr/emp/info/" + empAdded.getId().toString();
+    }
+
+    @GetMapping("/pos/info/{id}")
     public String fetchPosInfo(@PathVariable @Valid Long id, Model model)
     {
+        log.info("THE ID IS -----------" + id.toString());
         Optional<Position> pos = posRepo.findById(id);
 
         if (!pos.isPresent())
@@ -92,14 +118,20 @@ public class HumanResourcesViewController
             return "posInfoForm";
         }
 
-        model.addAttribute("pos", pos);
+        model.addAttribute("pos", pos.get());
         return "posInfoForm";
     }
 
+    @GetMapping("/pos/add")
+    public String fetchAddPosForm()
+    {
+        return "addPosForm";
+    }
+
     @PostMapping("/pos/add")
-    public String addNewPosition(@RequestBody @Valid Position pos)
+    public String addNewPosition(@ModelAttribute("pos") @Valid Position pos)
     {
         Position posAdded = posRepo.save(pos);
-        return "redirect:/hr/pos/" + posAdded.getId().toString();
+        return "redirect:/hr/pos/info/" + posAdded.getId().toString();
     }
 }

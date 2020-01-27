@@ -29,6 +29,8 @@ public class User implements UserDetails
     @Length(min = 4)
     private String password;
 
+    private String fullName;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {

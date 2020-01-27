@@ -6,31 +6,31 @@
 </head>
 <body>
 
-    <form th:action="@{/hr/emp/edit}" th:method="update" th:object="${emp}">
+    <form th:action="@{/hr/emp/edit}" th:met`hod="update" th:object="${emp}">
         First name<br>
-        <input type="text" name="firstName" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="text" name="firstName" th:value="${emp.firstName}">
         <br>
         Last Name<br>
-        <input type="text" name="lastName" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="text" name="lastName" th:value="${emp.lastName}">
         <br>
         Date of birth<br>
-        <input type="date" name="birthDate" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="date" name="birthDate" th:value="${emp.birthDate}">
         <br>
         Position<br>
-        <select name="position" th:attrappend="${allowed_edit = false}?disabled">
+        <select name="position" th:value="${emp.position.id}">
             <option th:each="pos : ${positions}"
-                    th:value="${pos}"
+                    th:value="${pos.id}"
                     th:text="${pos.name + '(salary: ' + pos.salary + '$)'}"></option>
         </select><a th:href="@{/hr/pos/add}">Missing a position? Add a new one</a>
         <br>
         Salary bonus<br>
-        <input type="number" name="bonus" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="number" name="bonus" th:value="${emp.bonus}">
         <br>
         Hire date<br>
-        <input type="date" name="hireDate" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="date" name="hireDate" th:value="${emp.hireDate}">
         <br>
         Activated<br>
-        <input type="checkbox" name="isActive" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="checkbox" name="isActive" th:value="${emp.isActive}">
     </form>
 
 </body>

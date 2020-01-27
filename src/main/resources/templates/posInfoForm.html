@@ -9,13 +9,13 @@
 
     <form th:action="@{/hr/pos/edit}" th:method="update" th:object="${pos}">
         Position name<br>
-        <input type="text" name="name" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="text" name="name" th:value="${pos.name}">
         <br>
         Description<br>
-        <input type="text" name="description" th:attrappend="${allowed_edit = false}?disabled">
+        <input type="text" name="description" th:value="${pos.description}">
         <br>
         Salary<br>
-        <input type="text" name="salary" th:attrappend="${allowed_edit = false}?disabled>">
+        <input type="text" name="salary" th:value="${pos.salary}">
         <br>
     </form>
 

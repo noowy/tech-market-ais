@@ -17,7 +17,7 @@ public class Position
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NaturalId
+    @Column(unique = true)
     @NotBlank
     @NotNull
     private String name;

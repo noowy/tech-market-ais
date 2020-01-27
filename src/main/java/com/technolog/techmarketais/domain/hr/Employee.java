@@ -16,7 +16,7 @@ public class Employee extends Person
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "position_id", referencedColumnName = "name")
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
     private Boolean isActive;
